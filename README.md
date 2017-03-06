@@ -10,6 +10,9 @@ leanote:https://ncu.dl.sourceforge.net/project/leanote-bin/2.4/leanote-linux-amd
 mongo:https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.4.2.tgz
 
 #HOW TO
+
+If you don't use Dockerfile , skip First step.
+
 First replace your file name in below:
 
 
