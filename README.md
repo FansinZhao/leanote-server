@@ -23,12 +23,15 @@ First replace your file name in below:
 
 Then run docker.
 
+*First run leanote , you must init database's tables*
+
+    docker run -d --name some-leanote fansin/leanote init
+
+Usually, you just run command like below:
+
     docker run -d --name some-leanote fansin/leanote
 
 visit http://172.17.0.2:9000/
 more visit www.leanote.com/
 #STORAGE
     docker run -d -v /home/you/leanote_data:/leanote/mongodb_backup/leanote_install_data/ -v /home/you/mongodb:/mongodb/data -v -v /home/you/mongodb/logs:/mongodb/logs --name some-leanote fansin/leanote
-
-#BUGS
-If the container is not run , just `docker start some-leanote`,use `docker logs some-leanote` to see log.
