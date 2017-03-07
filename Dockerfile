@@ -22,9 +22,10 @@ ADD run.sh ./
 
 RUN mv mongodb-linux-x86_64-ubuntu1604-3.4.2 mongodb
 RUN chmod a+x /mongodb/bin/*
-RUN chmod a+x /leanote/bin/*
+RUN chmod a+x /leanote/bin/leanote-linux-amd64 /leanote/bin/run.sh
 RUN mkdir /mongodb/data && mkdir /mongodb/logs && mkdir /leanote/logs
 RUN chmod a+x /run.sh
 
 # 4 run container
-CMD /run.sh
+ENTRYPOINT ["/run.sh"]
+CMD [""]
