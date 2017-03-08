@@ -14,7 +14,7 @@ MAINTAINER FansinZhao 171388204@qq.com
 # 3 command
 #RUN sed -i s/archive.ubuntu.com/mirrors.aliyun.com/g /etc/apt/sources.list
 RUN apt update && apt install -y openssl
-RUN apt clean
+RUN apt clean && rm -rf /var/lib/apt/lists/*
 
 ADD leanote-linux-amd64-v2.4.bin.tar.gz ./
 ADD mongodb-linux-x86_64-ubuntu1604-3.4.2.tgz ./
