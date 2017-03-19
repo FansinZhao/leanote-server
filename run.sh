@@ -1,12 +1,12 @@
 #!/bin/bash
 echo `date "+%c"`" start database ..."
-/mongodb/bin/mongod --dbpath /mongodb/data --fork --logpath=/mongodb/logs/`date "+%Y-%m-%d"`.log && \
-echo `date "+%c"`" start database sucess."
+mongod --dbpath /data/db --fork --logpath=/mongo_`date "+%Y-%m-%d"`.log \
+&& echo `date "+%c"`" start database sucess."
 if [ "$1" = "init" ]
 then
   echo `date "+%c"`" init tables ..."
-  /mongodb/bin/mongorestore -h 127.0.0.1 -d leanote --dir /leanote/mongodb_backup/leanote_install_data/ && \
-  echo `date "+%c"`" init tables sucess!"
+  mongorestore -h 127.0.0.1 -d leanote --dir /leanote/mongodb_backup/leanote_install_data/ \
+&& echo `date "+%c"`" init tables sucess!"
 else
   echo `date "+%c"`" skip init"
 fi

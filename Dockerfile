@@ -1,31 +1,25 @@
-# This dockerfile uses the ubuntu image
-# VERSION 1
-# Author: FansinZhao
-# Command format : Instruction [arguments / command ]..
-# 1 init data repalce  /leanote/mongodb_backup/leanote_install_data/ by using -v
-# 2 use external data volume replace mongodb data file  /data/db by using -v
-
-# 1 use the ubuntu image
-FROM ubuntu
-
-# 2 author
+# base mongo image
+# 
+FROM mongo
+#
 MAINTAINER FansinZhao 171388204@qq.com
 
-# 3 command
-#RUN sed -i s/archive.ubuntu.com/mirrors.aliyun.com/g /etc/apt/sources.list
-RUN apt update && apt install -y openssl
-RUN apt clean && rm -rf /var/lib/apt/lists/*
+# update and install wget ,use to download leanote-server binary file
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends wget 
+#clean
+RUN rm -rf /var/lib/apt/lists/*
 
-ADD leanote-linux-amd64-v2.4.bin.tar.gz ./
-ADD mongodb-linux-x86_64-ubuntu1604-3.4.2.tgz ./
+# download leanote-server and unzip file
+RUN set -x \
+	&& wget --no-check-certificate -c -O leanote-linux-amd64-v2.4.bin.tar.gz "https://sourceforge.net/projects/leanote-bin/files/2.4/leanote-linux-amd64-v2.4.bin.tar.gz/download" \
+	&& tar -zxvf leanote-linux-amd64-v2.4.bin.tar.gz \
+	&& chmod +x leanote
+#clean
+RUN rm -rf leanote-linux-amd64-v2.4.bin.tar.gz && apt-get purge -y --auto-remove wget
+# add run.sh
 ADD run.sh ./
-
-RUN mv mongodb-linux-x86_64-ubuntu1604-3.4.2 mongodb
-RUN chmod a+x /mongodb/bin/*
-RUN chmod a+x /leanote/bin/leanote-linux-amd64 /leanote/bin/run.sh
-RUN mkdir /mongodb/data && mkdir /mongodb/logs && mkdir /leanote/logs
 RUN chmod a+x /run.sh
-
-# 4 run container
+#
 ENTRYPOINT ["/run.sh"]
 CMD [""]
