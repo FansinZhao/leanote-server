@@ -21,4 +21,5 @@ Usually, you just run command like below:
 visit http://172.17.0.2:9000/ the default user : admin/abc123.more visit [www.leanote.com](http://www.leanote.com)
 
 #STORAGE
+
     docker run -d -v /home/you/leanote_data:/leanote/mongodb_backup/leanote_install_data/ -v /home/you/mongodb:/data/db --name some-leanote fansin/leanote
