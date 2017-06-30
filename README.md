@@ -33,7 +33,9 @@ Use external db volume directory, just link mongodb default db directory `/data/
 
 # BACKUP
 1 备份mongo数据
+
     mongodump -h 172.17.0.x -d leanote -o /backup
   
 2 备份媒体等文件
+
     docker cp some-leanote:/leanote/files /backup/files
