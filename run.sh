@@ -1,16 +1,16 @@
 #!/bin/bash
-echo `date "+%c"`" start database ..."
-mongod --dbpath /data/db --fork --logpath=/mongo_`date "+%Y-%m-%d"`.log \
-&& echo `date "+%c"`" start database sucess."
-if [ "$1" = "init" ]
+echo `date "+%c"`" start database ...启动 mongo 数据库..."
+mongod &
+echo `date "+%c"`" start database successful. 启动 mongo 数据库成功!.."
+if [  -f "mongo.init" ]
 then
-  echo `date "+%c"`" init tables ..."
-  mongorestore -h 127.0.0.1 -d leanote --dir /leanote/mongodb_backup/leanote_install_data/ \
-&& echo `date "+%c"`" init tables sucess!"
+    echo `date "+%c"`" skip mongo init 已初始化,跳过初始化..."
 else
-  echo `date "+%c"`" skip init"
+  echo `date "+%c"`" init tables ... 初始化leanote数据..."
+  mongorestore -h 127.0.0.1 -d leanote --dir /leanote/mongodb_backup/leanote_install_data/
+  echo `date "+%c"`" init tables successful! 初始化数据完成..."
 fi
-echo `date "+%c"`" start leanote server ..."
+echo `date "+%c"`" start leanote server ... 启动leanote服务..."
 SCRIPTPATH=/leanote/bin/
 cd $SCRIPTPATH
 # set link
