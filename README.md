@@ -23,10 +23,16 @@ more visit [www.leanote.com](http://www.leanote.com)
 
 Use your backup file,just replace leanote default directory `/leanote/mongodb_backup/leanote_install_data/`.
 
-    docker run -d -v /home/you/leanote_data:/leanote/mongodb_backup/leanote_install_data/ --name some-leanote fansin/leanote-server
+    docker run -d -v /backup/leanote/:/leanote/mongodb_backup/leanote_install_data/ -v -v /backup/files/:/leanote/files/ --name some-leanote fansin/leanote-server
 
 
 # STORAGE
 Use external db volume directory, just link mongodb default db directory `/data/db`.
 
     docker run -d -v /home/you/mongodb:/data/db --name some-leanote fansin/leanote-server
+
+# BACKUP
+1 备份mongo数据
+  mongodump -h 172.17.0.x -d leanote -o /backup
+2 备份媒体等文件
+  docker cp some-leanote:/leanote/files /backup/files
